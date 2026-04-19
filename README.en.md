@@ -93,6 +93,7 @@ Core fields:
 | `配送中心数量` | integer | ❌ | ≥ 0 |
 | `生产加工中心数量` | integer | ❌ | ≥ 0 |
 | `成交价系数` | float | ❌ | 0.01 – 1.0 |
+| `人工改价原因` | string | ⚠️ | Required when `成交价系数` is provided |
 | `是否启用阶梯报价` | boolean | ❌ | |
 | `实施服务类型` | string | ❌ | |
 | `实施服务人天` | integer | ❌ | ≥ 0 |
