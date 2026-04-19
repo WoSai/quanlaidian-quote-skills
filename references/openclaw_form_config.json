@@ -136,6 +136,14 @@
           "warning_when": "超出建议范围时提示特批风险，人工改价必须填写原因"
         },
         {
+          "key": "人工改价原因",
+          "label": "人工改价原因",
+          "component": "textarea",
+          "value_type": "string",
+          "required_when": {"成交价系数": "<set>"},
+          "help_text": "显式设置 成交价系数 时必填，用于审计；缺失时服务端返回 400 OUT_OF_RANGE。"
+        },
+        {
           "key": "是否启用阶梯报价",
           "label": "是否启用阶梯报价",
           "component": "switch",
