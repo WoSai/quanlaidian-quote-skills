@@ -2,6 +2,8 @@
 
 > [中文版 →](README.md)
 
+> **For sales & pre-sales:** [Using this skill via the OpenClaw bot in Feishu (zh)](docs/飞书使用指南.md)
+
 An OpenClaw skill: takes a quotation form JSON, calls the backend [quanlaidian-quote-service](https://github.com/jasonshao/quanlaidian-quote-service), and returns a quotation summary with download links for PDF / Excel / JSON config files.
 
 **Version:** 1.0.0　**Dependencies:** Python 3 standard library only

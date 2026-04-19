@@ -2,6 +2,8 @@
 
 > [English version →](README.en.md)
 
+> **销售 / 售前用户看这里：** [在飞书里用 OpenClaw 机器人出报价](docs/飞书使用指南.md)
+
 一个用于 OpenClaw 的技能包：接收一份报价表单 JSON，调用后端 [quanlaidian-quote-service](https://github.com/jasonshao/quanlaidian-quote-service)，回写报价预览和 PDF / Excel / JSON 配置文件的下载链接。
 
 **版本：** 1.0.0　**依赖：** 仅 Python 3 标准库
