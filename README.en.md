@@ -22,12 +22,25 @@ Zero extra dependencies — works immediately after cloning.
 
 ## Configure
 
-Set these environment variables:
+Both environment variables are **required** — the script validates them at runtime:
 
 | Variable | Required | Description |
 |---|---|---|
+| `QUOTE_API_URL` | ✅ | Quote service base URL, injected by the operator at runtime. **Do not hard-code it.** UAT typically uses `http://118.145.233.116:443` (plain HTTP, direct IP); switching to a TLS-backed production domain like `https://api.quanlaidian.com` later is a pure env-var change with no code edit. Legacy values ending in `/v1/quote` or `/v1/quotes` are accepted — the suffix is stripped automatically. |
 | `QUOTE_API_TOKEN` | ✅ | API token (one per organisation, issued by the service admin) |
-| `QUOTE_API_URL` | ❌ | Quote service endpoint, default `https://api.quanlaidian.com/v1/quote` |
+
+**Typical setup (UAT):**
+
+```bash
+export QUOTE_API_URL=http://118.145.233.116:443
+export QUOTE_API_TOKEN=<token issued by admin>
+
+# Reachability check
+curl -s "$QUOTE_API_URL/healthz"
+# → {"status":"ok","pricing_version":"small-segment-v2.3"}
+```
+
+If either variable is unset, the script exits with `配置缺失：环境变量 … 未设置`.
 
 ---
 
@@ -39,11 +52,17 @@ Prepare a form JSON matching `references/openclaw_form_schema.json`, then:
 python3 scripts/quote.py --form <path-to-form.json>
 ```
 
-OpenClaw automatically invokes this script when the user submits the form.
+OpenClaw automatically invokes this script when the user submits the form. The default path uses the v2 resource flow (`POST /v1/quotes` → persist → render pdf/xlsx/json on demand).
+
+```bash
+# Transitional: route through the one-shot legacy endpoint /v1/quote
+# (returns 409 when approval is required)
+python3 scripts/quote.py --legacy --form <path-to-form.json>
+```
 
 ### Output
 
-The script writes Markdown directly to stdout:
+**A. Normal generation** — summary + three download links + quote ID:
 
 ```markdown
 ## 本次配置摘要
@@ -55,22 +74,38 @@ The script writes Markdown directly to stdout:
 
 ## 下载文件
 
-- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.pdf)
-- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.xlsx)
-- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260419.json)
+- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260420.pdf)
+- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260420.xlsx)
+- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260420.json)
 
-_报价版本：small-segment-v2.3_
+_报价 ID：q_20260420_xxxxxxxx　报价版本：small-segment-v2.3_
 ```
 
-File URLs expire after **7 days** — instruct the customer to download promptly.
+File URLs expire after **7 days**. Once expired, re-render with the same quote ID via `POST /v1/quotes/{id}/render/{format}?force=1`.
+
+**B. Approval required** — summary + pending notice (no PDF/Excel/JSON links):
+
+```markdown
+## 待审批
+
+- 报价 ID：`q_20260420_xxxxxxxx`
+- 审批状态：pending
+- 触发原因：
+  - final_factor_below_base_minus_0.01:manager_approval
+  - manual_override_without_sufficient_history
+
+配置已保存，暂不生成 PDF/Excel/JSON。请联系主管在 OpenClaw 内审批通过后，用同一个报价 ID 重新下发。
+```
+
+Approval is granted by a manager inside OpenClaw. Sales just needs to forward the quote ID and the listed reasons.
 
 ### Exit Codes & Errors
 
 | Scenario | Behaviour |
 |---|---|
-| Success | Exit 0, Markdown on stdout |
-| `QUOTE_API_TOKEN` not set | Exit 1, error on stderr |
-| Server returns non-2xx | Exit 1, prints `服务端错误 <HTTP code>：<body>` |
+| Success / approval pending | Exit 0, Markdown on stdout |
+| `QUOTE_API_URL` or `QUOTE_API_TOKEN` not set | Exit 1, error on stderr |
+| Server returns non-2xx (incl. legacy's 409 APPROVAL_PENDING) | Exit 1, prints `服务端错误 <HTTP code>：<body>` |
 | Network error | Exit 1, prints `网络异常：<reason>` |
 
 ---

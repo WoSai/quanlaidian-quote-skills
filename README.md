@@ -22,12 +22,25 @@ git clone https://github.com/jasonshao/quanlaidian-quote-skills.git
 
 ## 配置
 
-设置以下环境变量：
+设置以下环境变量（两个都是**必填**，脚本在运行时会校验）：
 
 | 变量 | 必填 | 说明 |
 |---|---|---|
+| `QUOTE_API_URL` | ✅ | 报价服务 base URL，由运维/部署侧注入。**不在代码里硬编码**。UAT 期间通常为 `http://118.145.233.116:443`（纯 HTTP，IP 直连）；未来切到 `https://api.quanlaidian.com` 这类带 TLS 的正式域名时，只需改 env 变量无需改代码。兼容旧配置 `…/v1/quote`、`…/v1/quotes`，会自动去掉后缀。 |
 | `QUOTE_API_TOKEN` | ✅ | API 认证令牌（向管理员申请，每个组织一个） |
-| `QUOTE_API_URL` | ❌ | 报价服务地址，默认 `https://api.quanlaidian.com/v1/quote` |
+
+**典型设置（UAT）：**
+
+```bash
+export QUOTE_API_URL=http://118.145.233.116:443
+export QUOTE_API_TOKEN=<向管理员申请的 token>
+
+# 连通性自检
+curl -s "$QUOTE_API_URL/healthz"
+# → {"status":"ok","pricing_version":"small-segment-v2.3"}
+```
+
+任一变量未设置，脚本会退出并打印 `配置缺失：环境变量 … 未设置`。
 
 ---
 
@@ -39,11 +52,16 @@ git clone https://github.com/jasonshao/quanlaidian-quote-skills.git
 python3 scripts/quote.py --form <表单JSON路径>
 ```
 
-OpenClaw 在用户提交表单时会自动调用此脚本。
+OpenClaw 在用户提交表单时会自动调用此脚本。默认走 v2 资源流（`POST /v1/quotes` → 持久化 → 按需 render pdf/xlsx/json）。
+
+```bash
+# 过渡期可选：走老的一次性接口 /v1/quote（触发审批时会 409）
+python3 scripts/quote.py --legacy --form <表单JSON路径>
+```
 
 ### 输出
 
-脚本直接向 stdout 打印 Markdown：
+**A. 正常生成** — 配置摘要 + 三个下载链接 + 报价 ID：
 
 ```markdown
 ## 本次配置摘要
@@ -55,22 +73,38 @@ OpenClaw 在用户提交表单时会自动调用此脚本。
 
 ## 下载文件
 
-- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.pdf)
-- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.xlsx)
-- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260419.json)
+- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260420.pdf)
+- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260420.xlsx)
+- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260420.json)
 
-_报价版本：small-segment-v2.3_
+_报价 ID：q_20260420_xxxxxxxx　报价版本：small-segment-v2.3_
 ```
 
-文件链接 **有效期 7 天**，请指导客户及时下载。
+文件链接 **有效期 7 天**，请指导客户及时下载。过期后可用同一 `报价 ID` 调用服务端 `POST /v1/quotes/{id}/render/{format}?force=1` 重新生成。
+
+**B. 触发审批** — 配置摘要 + 待审批说明（不会展示 PDF/Excel/JSON 链接）：
+
+```markdown
+## 待审批
+
+- 报价 ID：`q_20260420_xxxxxxxx`
+- 审批状态：pending
+- 触发原因：
+  - final_factor_below_base_minus_0.01:manager_approval
+  - manual_override_without_sufficient_history
+
+配置已保存，暂不生成 PDF/Excel/JSON。请联系主管在 OpenClaw 内审批通过后，用同一个报价 ID 重新下发。
+```
+
+审批通过由主管在 OpenClaw 内完成，销售仅需把 `报价 ID` 和触发原因转给主管即可。
 
 ### 退出码与错误
 
 | 场景 | 行为 |
 |---|---|
-| 成功 | 退出码 0，Markdown 输出到 stdout |
-| `QUOTE_API_TOKEN` 未配置 | 退出码 1，错误信息到 stderr |
-| 服务端返回非 2xx | 退出码 1，打印 `服务端错误 <HTTP状态码>：<响应体>` |
+| 成功 / 待审批 | 退出码 0，Markdown 输出到 stdout |
+| `QUOTE_API_URL` 或 `QUOTE_API_TOKEN` 未配置 | 退出码 1，错误信息到 stderr |
+| 服务端返回非 2xx（含 legacy 的 409 APPROVAL_PENDING） | 退出码 1，打印 `服务端错误 <HTTP状态码>：<响应体>` |
 | 网络异常 | 退出码 1，打印 `网络异常：<原因>` |
 
 ---
