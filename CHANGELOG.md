@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 (2026-04-22)
+
+- 新增节点每日自动更新机制：`scripts/check_openclaw_update.py` 比对本地 `VERSION` 与 `main` 分支 raw `VERSION`，有新版本时 `git pull --ff-only`
+- 新增 `scripts/install_cron.sh`：幂等地把每日 01:00 自更新 cron 行写入当前用户 crontab
+- README 增加"自动更新"章节（中英文）
+- 借鉴归档仓库 `quanlaidian-quotation-skill` 的节点自检方案
+
 ## 1.0.0 (2026-04-18)
 
 ### Breaking Changes

@@ -6,7 +6,7 @@
 
 一个用于 OpenClaw 的技能包：接收一份报价表单 JSON，调用后端 [quanlaidian-quote-service](https://github.com/jasonshao/quanlaidian-quote-service)，回写报价预览和 PDF / Excel / JSON 配置文件的下载链接。
 
-**版本：** 1.0.0　**依赖：** 仅 Python 3 标准库
+**版本：** 1.1.0　**依赖：** 仅 Python 3 标准库
 
 ---
 
@@ -17,6 +17,29 @@ git clone https://github.com/jasonshao/quanlaidian-quote-skills.git
 ```
 
 零额外依赖，克隆后即可使用。
+
+---
+
+## 自动更新
+
+OpenClaw 节点每日凌晨 1:00 自动检查 GitHub `main` 分支的 `VERSION` 文件，较新时执行 `git pull --ff-only`。
+
+一次性启用（当前用户 crontab，幂等）：
+
+```bash
+bash scripts/install_cron.sh
+```
+
+| 操作 | 命令 |
+|---|---|
+| 手动检查（不拉取） | `python3 scripts/check_openclaw_update.py` |
+| 手动检查 + 拉取 | `python3 scripts/check_openclaw_update.py --apply` |
+| 查看日志 | `tail -f ~/.cache/quanlaidian-quote-skills/update.log` |
+| 停用 | `crontab -e` 删掉含 `check_openclaw_update.py` 的那一行 |
+
+可覆盖环境变量：`SKILL_REPO`（默认 `jasonshao/quanlaidian-quote-skills`）、`SKILL_LOCAL_DIR`（默认脚本所在仓库根）、`SKILL_UPDATE_LOG_DIR`（默认 `~/.cache/quanlaidian-quote-skills`）。
+
+> **发版须知：** 更新检测以仓库根的 `VERSION` 文件为准。合并到 `main` 的发版提交必须同步 bump `VERSION`，否则节点不会拉取。
 
 ---
 
@@ -114,7 +137,9 @@ quanlaidian-quotation-skill/
 ├── CHANGELOG.md
 ├── LICENSE
 ├── scripts/
-│   └── quote.py                          # 45 行客户端 — 零额外依赖
+│   ├── quote.py                          # 45 行客户端 — 零额外依赖
+│   ├── check_openclaw_update.py          # 日更自检脚本
+│   └── install_cron.sh                   # 幂等安装 crontab 的帮助脚本
 └── references/
     ├── openclaw_form_schema.json         # 表单 JSON Schema
     ├── openclaw_form_config.json         # OpenClaw 表单控件配置

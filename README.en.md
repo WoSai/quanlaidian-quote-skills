@@ -6,7 +6,7 @@
 
 An OpenClaw skill: takes a quotation form JSON, calls the backend [quanlaidian-quote-service](https://github.com/jasonshao/quanlaidian-quote-service), and returns a quotation summary with download links for PDF / Excel / JSON config files.
 
-**Version:** 1.0.0　**Dependencies:** Python 3 standard library only
+**Version:** 1.1.0　**Dependencies:** Python 3 standard library only
 
 ---
 
@@ -17,6 +17,29 @@ git clone https://github.com/jasonshao/quanlaidian-quote-skills.git
 ```
 
 Zero extra dependencies — works immediately after cloning.
+
+---
+
+## Auto-update
+
+OpenClaw nodes check the `VERSION` file on `main` daily at 01:00 and run `git pull --ff-only` when a newer version is published.
+
+One-shot enable (installs into the current user's crontab, idempotent):
+
+```bash
+bash scripts/install_cron.sh
+```
+
+| Action | Command |
+|---|---|
+| Manual check (no pull) | `python3 scripts/check_openclaw_update.py` |
+| Manual check + pull | `python3 scripts/check_openclaw_update.py --apply` |
+| Tail log | `tail -f ~/.cache/quanlaidian-quote-skills/update.log` |
+| Disable | `crontab -e` — delete the line containing `check_openclaw_update.py` |
+
+Overridable env vars: `SKILL_REPO` (default `jasonshao/quanlaidian-quote-skills`), `SKILL_LOCAL_DIR` (default: the repo root containing the script), `SKILL_UPDATE_LOG_DIR` (default `~/.cache/quanlaidian-quote-skills`).
+
+> **Release note:** Detection is based on the repo-root `VERSION` file. Release commits merged into `main` **must** bump `VERSION`, otherwise nodes will not pull.
 
 ---
 
@@ -114,7 +137,9 @@ quanlaidian-quotation-skill/
 ├── CHANGELOG.md
 ├── LICENSE
 ├── scripts/
-│   └── quote.py                          # 45-line client — zero extra deps
+│   ├── quote.py                          # 45-line client — zero extra deps
+│   ├── check_openclaw_update.py          # Daily self-update checker
+│   └── install_cron.sh                   # Idempotent crontab installer
 └── references/
     ├── openclaw_form_schema.json         # Form JSON Schema
     ├── openclaw_form_config.json         # OpenClaw form control config
