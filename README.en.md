@@ -50,7 +50,7 @@ Set these environment variables:
 | Variable | Required | Description |
 |---|---|---|
 | `QUOTE_API_TOKEN` | ✅ | API token (one per organisation, issued by the service admin) |
-| `QUOTE_API_URL` | ❌ | Quote service endpoint, default `https://api.quanlaidian.com/v1/quote` |
+| `QUOTE_API_URL` | ❌ | Quote service endpoint, default `https://<your-api-host>/v1/quote` |
 
 ---
 
@@ -78,9 +78,9 @@ The script writes Markdown directly to stdout:
 
 ## 下载文件
 
-- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.pdf)
-- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.xlsx)
-- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260419.json)
+- [报价单 PDF](https://<your-api-host>/files/.../示例品牌-全来店-报价单-20260419.pdf)
+- [报价单 Excel](https://<your-api-host>/files/.../示例品牌-全来店-报价单-20260419.xlsx)
+- [报价配置 JSON](https://<your-api-host>/files/.../示例品牌-全来店-报价配置-20260419.json)
 
 _报价版本：small-segment-v2.3_
 ```

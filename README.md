@@ -78,9 +78,9 @@ OpenClaw 在用户提交表单时会自动调用此脚本。
 
 ## 下载文件
 
-- [报价单 PDF](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.pdf)
-- [报价单 Excel](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价单-20260419.xlsx)
-- [报价配置 JSON](https://api.quanlaidian.com/files/.../示例品牌-全来店-报价配置-20260419.json)
+- [报价单 PDF](https://<your-api-host>/files/.../示例品牌-全来店-报价单-20260419.pdf)
+- [报价单 Excel](https://<your-api-host>/files/.../示例品牌-全来店-报价单-20260419.xlsx)
+- [报价配置 JSON](https://<your-api-host>/files/.../示例品牌-全来店-报价配置-20260419.json)
 
 _报价版本：small-segment-v2.3_
 ```
