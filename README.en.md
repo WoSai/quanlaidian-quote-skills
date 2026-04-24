@@ -2,19 +2,13 @@
 
 > [中文版 →](README.md)
 
-> **For sales & pre-sales:** [Using this skill via the OpenClaw bot in Feishu (zh)](docs/飞书使用指南.md)
-
-An OpenClaw skill: takes a quotation form JSON, calls the backend [quanlaidian-quote-service](https://github.com/jasonshao/quanlaidian-quote-service), and returns a quotation summary with download links for PDF / Excel / JSON config files.
+An OpenClaw skill: takes a quotation form JSON and returns a quotation summary with download links for PDF / Excel / JSON config files.
 
 **Version:** 1.2.0　**Dependencies:** Python 3 standard library only
 
 ---
 
 ## Install
-
-```bash
-git clone https://github.com/jasonshao/quanlaidian-quote-skills.git
-```
 
 Zero extra dependencies — works immediately after cloning.
 
@@ -50,7 +44,7 @@ Set these environment variables:
 | Variable | Required | Description |
 |---|---|---|
 | `QUOTE_API_TOKEN` | ✅ | API token (one per organisation, issued by the service admin) |
-| `QUOTE_API_URL` | ❌ | Quote service endpoint, default `https://<your-api-host>/v1/quote` |
+| `QUOTE_API_URL` | ❌ | Quote service endpoint, default `https://<your-api-host>/v1/quote`; for production use `https://<your-api-host>/v1/quote` (ask the admin for the actual host) |
 
 ---
 
@@ -117,13 +111,12 @@ Core fields:
 | `总部模块` | string[] | ❌ | |
 | `配送中心数量` | integer | ❌ | ≥ 0 |
 | `生产加工中心数量` | integer | ❌ | ≥ 0 |
-| `成交价系数` | float | ❌ | 0.01 – 1.0 |
-| `人工改价原因` | string | ⚠️ | Required when `成交价系数` is provided |
+| `成交价系数` | float | ❌ | 0.01 – 1.0; **`人工改价原因` is required when this is explicitly provided** |
+| `人工改价原因` | string | ❌ | Required when `成交价系数` is explicitly provided, kept for audit trail |
 | `是否启用阶梯报价` | boolean | ❌ | |
 | `实施服务类型` | string | ❌ | |
 | `实施服务人天` | integer | ❌ | ≥ 0 |
 
-Full API request/response schema lives in the [quanlaidian-quote-service README](https://github.com/jasonshao/quanlaidian-quote-service).
 
 ---
 
