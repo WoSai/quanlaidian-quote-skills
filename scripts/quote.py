@@ -2,7 +2,7 @@
 """quote.py — 全来店报价薄客户端"""
 import argparse, json, os, sys, urllib.request, urllib.error
 
-API   = os.environ.get("QUOTE_API_URL", "https://api.quanlaidian.com/v1/quote")
+API   = os.environ.get("QUOTE_API_URL", "https://<your-api-host>/v1/quote")
 TOKEN = os.environ.get("QUOTE_API_TOKEN")
 
 def call_server(form):
