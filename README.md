@@ -43,6 +43,21 @@ bash scripts/install_cron.sh
 
 ---
 
+## 发版流程（release-please 自动化）
+
+仓库使用 [release-please](https://github.com/googleapis/release-please) 根据 Conventional Commits 自动汇总变更。
+
+- 任何 PR 合并到 `main` 后，`.github/workflows/release-please.yml` 会触发 release-please。
+- release-please 扫描自上次 release 以来的 `feat:` / `fix:` / `docs:` / `refactor:` / `perf:` 等提交，开/更新一个 **release PR**（标题形如 `chore(release): 1.3.0`），把这些条目按类型分组写入 `CHANGELOG.md`，并在 `.release-please-manifest.json` 中 bump 版本。
+- **Reviewer 操作**：
+  1. 检查 release PR 中的 CHANGELOG 草稿，必要时手工润色。
+  2. 把 `.release-please-manifest.json` 里的新版本同步写到 `VERSION` 文件（release-please 默认不会动 `VERSION`，因为节点的自更新脚本会直接读取它）。
+  3. 合并 release PR。合并后 release-please 会自动打 `v<version>` git tag 并创建 GitHub Release。
+- 提交信息规范：使用 Conventional Commits（`feat:` / `fix:` / `docs:` / `refactor:` / `perf:` / `chore:` 等）。`chore` / `test` / `build` / `ci` / `style` 默认在 CHANGELOG 中隐藏。
+- 配置文件：`release-please-config.json`（分组规则）+ `.release-please-manifest.json`（当前版本）。
+
+---
+
 ## 配置
 
 设置以下环境变量：
