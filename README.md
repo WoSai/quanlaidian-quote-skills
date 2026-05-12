@@ -2,7 +2,13 @@
 
 > [English version →](README.en.md)
 
-一个用于 OpenClaw 的技能包：接收一份报价表单 JSON，回写报价预览和 PDF / Excel / JSON 配置文件的下载链接。
+一个用于 OpenClaw 的技能包：按运行环境采集报价字段，回写报价预览和 PDF / Excel / JSON 配置文件的下载链接。
+
+**字段采集路径**（按运行环境自动二选一，统一兜底引导式对话，详见 `SKILL.md`）：
+
+- **飞书对话环境** → 用 `feishu_ask_user_question` 消息卡片分轮点选采集（3 轮卡片 + 1 轮可选确认；用户已给的字段自动跳过对应问题）
+- **OpenClaw 等其他平台** → 走原生表单
+- **两者都缺位时** → 退到少打字、以选项为主的引导式对话兜底
 
 **版本：** 1.2.0　**依赖：** 仅 Python 3 标准库
 
@@ -50,13 +56,13 @@ bash scripts/install_cron.sh
 
 ## 使用
 
-准备一份符合 `references/openclaw_form_schema.json` 的表单 JSON，然后：
+技能内部会按运行环境采集字段（飞书卡片 / 原生表单 / 引导式对话），采集完成后用同一份结构化表单 JSON 调用：
 
 ```bash
 python3 scripts/quote.py --form <表单JSON路径>
 ```
 
-OpenClaw 在用户提交表单时会自动调用此脚本。
+表单 JSON 字段定义见 `references/openclaw_form_schema.json`，示例见 `references/openclaw_form_submission.example.json`。OpenClaw 在用户提交原生表单时也会自动调用此脚本。
 
 ### 输出
 

@@ -2,7 +2,13 @@
 
 > [中文版 →](README.md)
 
-An OpenClaw skill: takes a quotation form JSON and returns a quotation summary with download links for PDF / Excel / JSON config files.
+An OpenClaw skill: collects quotation fields based on the runtime environment, then returns a quotation summary with download links for PDF / Excel / JSON config files.
+
+**Field collection paths** (auto-selected by runtime environment, with a unified conversational fallback — see `SKILL.md` for details):
+
+- **Feishu chat environment** → uses `feishu_ask_user_question` interactive cards (3 rounds + 1 optional confirmation card; fields already supplied by the user are skipped automatically)
+- **OpenClaw and other platforms** → uses the native form
+- **Neither available** → falls back to a low-typing, option-driven guided dialogue
 
 **Version:** 1.2.0　**Dependencies:** Python 3 standard library only
 
@@ -50,13 +56,13 @@ Set these environment variables:
 
 ## Usage
 
-Prepare a form JSON matching `references/openclaw_form_schema.json`, then:
+The skill collects fields internally based on the runtime (Feishu cards / native form / guided dialogue) and then invokes the following with the same structured form JSON:
 
 ```bash
 python3 scripts/quote.py --form <path-to-form.json>
 ```
 
-OpenClaw automatically invokes this script when the user submits the form.
+Form JSON fields are defined in `references/openclaw_form_schema.json`; see `references/openclaw_form_submission.example.json` for an example. OpenClaw also calls this script automatically when the user submits the native form.
 
 ### Output
 
