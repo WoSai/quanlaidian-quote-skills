@@ -43,6 +43,21 @@ Overridable env vars: `SKILL_REPO` (default `jasonshao/quanlaidian-quote-skills`
 
 ---
 
+## Release Flow (release-please automation)
+
+The repo uses [release-please](https://github.com/googleapis/release-please) to aggregate changes based on Conventional Commits.
+
+- Every PR merged into `main` triggers `.github/workflows/release-please.yml`.
+- release-please scans commits since the last release (`feat:` / `fix:` / `docs:` / `refactor:` / `perf:`, etc.), then opens/updates a **release PR** (titled like `chore(release): 1.3.0`) that groups entries by type into `CHANGELOG.md` and bumps the version in `.release-please-manifest.json`.
+- **Reviewer steps**:
+  1. Review the CHANGELOG draft in the release PR; tidy wording if needed.
+  2. Sync the version in `.release-please-manifest.json` into the `VERSION` file (release-please does not touch `VERSION` by default, because the auto-update script on nodes reads it directly).
+  3. Merge the release PR. release-please then automatically creates a `v<version>` git tag and a GitHub Release.
+- Commit message convention: use Conventional Commits (`feat:` / `fix:` / `docs:` / `refactor:` / `perf:` / `chore:`, etc.). `chore` / `test` / `build` / `ci` / `style` are hidden from the CHANGELOG by default.
+- Config files: `release-please-config.json` (section rules) + `.release-please-manifest.json` (current version).
+
+---
+
 ## Configure
 
 Set these environment variables:

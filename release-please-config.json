@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "separate-pull-requests": false,
+  "pull-request-title-pattern": "chore(release): ${version}",
+  "changelog-sections": [
+    { "type": "feat", "section": "新功能" },
+    { "type": "fix", "section": "缺陷修复" },
+    { "type": "docs", "section": "文档" },
+    { "type": "refactor", "section": "重构" },
+    { "type": "perf", "section": "性能优化" },
+    { "type": "revert", "section": "回滚" },
+    { "type": "chore", "section": "杂项", "hidden": true },
+    { "type": "test", "section": "测试", "hidden": true },
+    { "type": "build", "section": "构建", "hidden": true },
+    { "type": "ci", "section": "CI", "hidden": true },
+    { "type": "style", "section": "代码风格", "hidden": true }
+  ],
+  "packages": {
+    ".": {
+      "package-name": "quanlaidian-quote-skills",
+      "changelog-path": "CHANGELOG.md",
+      "last-release-sha": "b5aa5ad1d599cb5ac8ab04efd30df63a4b681b4a"
+    }
+  }
+}
