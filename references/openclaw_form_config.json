@@ -152,33 +152,6 @@
           "default": false
         }
       ]
-    },
-    {
-      "id": "implementation",
-      "title": "实施服务",
-      "fields": [
-        {
-          "key": "实施服务类型",
-          "label": "实施服务类型",
-          "component": "select",
-          "value_type": "string",
-          "required": false,
-          "options": [
-            "一类城市顾问服务T5",
-            "二类城市顾问服务T5",
-            "定制化开发"
-          ]
-        },
-        {
-          "key": "实施服务人天",
-          "label": "实施服务人天",
-          "component": "number",
-          "value_type": "integer",
-          "required": false,
-          "default": 0,
-          "minimum": 0
-        }
-      ]
     }
   ],
   "validation": {

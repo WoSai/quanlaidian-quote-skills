@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 (2026-05-12)
+
+- 移除全部「实施服务」相关字段与文案，与后端能力对齐：
+  - `references/openclaw_form_schema.json` / `openclaw_form_config.json` 删除 `实施服务类型` / `实施服务人天` 字段及 `implementation` 分组
+  - `references/openclaw_form_submission.example.json` 删除示例字段
+  - `references/product_catalog.md` 删除『实施服务人天测算口径』小节
+  - `SKILL.md` 核心字段、卡片 2 选项、引导式对话步骤、配置摘要展示项均移除实施服务相关描述
+  - `README.md` / `README.en.md` 字段表删除实施服务两行
+  - `references/sales_guide.md`、`docs/飞书使用指南.md`、`docs/backend_template_requirements.md` 同步删除引用
+
 ## 1.2.1 (2026-05-06)
 
 - [#14] SKILL.md 约束节顶部新增「强制 API 调用」最高优先级小节：明确报价文件唯一来源是 `scripts/quote.py`，禁止本地拼装 / 伪生成 / 失败回退本地估算；API 返回业务冲突时优先按 SKILL 决策树自动改写参数后**重新调用 API**，仅在决策树无法消歧时再向用户追问

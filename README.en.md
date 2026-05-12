@@ -120,8 +120,6 @@ Core fields:
 | `成交价系数` | float | ❌ | 0.01 – 1.0; **`人工改价原因` is required when this is explicitly provided** |
 | `人工改价原因` | string | ❌ | Required when `成交价系数` is explicitly provided, kept for audit trail |
 | `是否启用阶梯报价` | boolean | ❌ | |
-| `实施服务类型` | string | ❌ | |
-| `实施服务人天` | integer | ❌ | ≥ 0 |
 
 
 ---

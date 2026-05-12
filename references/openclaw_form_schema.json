@@ -133,29 +133,6 @@
       "required": false,
       "default": false,
       "help_text": "适用于客户尚未确定最终门店规模时的对比报价。"
-    },
-    {
-      "key": "实施服务类型",
-      "label": "实施服务类型",
-      "type": "string",
-      "component": "select",
-      "required": false,
-      "options": [
-        "一类城市顾问服务T5",
-        "二类城市顾问服务T5",
-        "定制化开发"
-      ],
-      "help_text": "按需选择，不需要可留空。"
-    },
-    {
-      "key": "实施服务人天",
-      "label": "实施服务人天",
-      "type": "integer",
-      "component": "number",
-      "required": false,
-      "minimum": 0,
-      "default": 0,
-      "help_text": "实施服务数量，单位为人天。"
     }
   ],
   "output_files": [
