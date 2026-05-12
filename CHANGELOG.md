@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.4.0 (2026-05-12)
+
+- 下线人工改价能力：删除 `成交价系数` / `人工改价原因` 字段及相关 schema、配置、提交示例、卡片问题、对话步骤、FAQ 文案；价格统一由服务端按门店数推荐折扣，用户要求改价时引导走线下特批
+- 下线阶梯报价开关：删除 `是否启用阶梯报价` 字段及 ≤30 店段的卡片问题；多档对比改为用户主动发起的 `quote.py` 多次调用，所有相关文档同步更新
+- `SKILL.md`：卡片 3 收敛为「配套数量」单一用途；引导式对话步骤由 9 步缩减为 8 步；约束节新增两条硬规则
+- `references/openclaw_form_schema.json` / `openclaw_form_config.json` / `openclaw_form_submission.example.json`：清理对应字段与 `pricing` 分组
+- `README.md` / `README.en.md` / `docs/飞书使用指南.md`：字段表、FAQ、对话示例、进阶用法同步收敛
+
+## 1.3.0 (2026-05-12)
+
+- 移除全部「实施服务」相关字段与文案，与后端能力对齐：
+  - `references/openclaw_form_schema.json` / `openclaw_form_config.json` 删除 `实施服务类型` / `实施服务人天` 字段及 `implementation` 分组
+  - `references/openclaw_form_submission.example.json` 删除示例字段
+  - `references/product_catalog.md` 删除『实施服务人天测算口径』小节
+  - `SKILL.md` 核心字段、卡片 2 选项、引导式对话步骤、配置摘要展示项均移除实施服务相关描述
+  - `README.md` / `README.en.md` 字段表删除实施服务两行
+  - `references/sales_guide.md`、`docs/飞书使用指南.md`、`docs/backend_template_requirements.md` 同步删除引用
+
 ## 1.2.1 (2026-05-06)
 
 - [#14] SKILL.md 约束节顶部新增「强制 API 调用」最高优先级小节：明确报价文件唯一来源是 `scripts/quote.py`，禁止本地拼装 / 伪生成 / 失败回退本地估算；API 返回业务冲突时优先按 SKILL 决策树自动改写参数后**重新调用 API**，仅在决策树无法消歧时再向用户追问
