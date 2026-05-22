@@ -10,7 +10,7 @@ An OpenClaw skill: collects quotation fields based on the runtime environment, t
 - **OpenClaw and other platforms** → uses the native form
 - **Neither available** → falls back to a low-typing, option-driven guided dialogue
 
-**Version:** 1.2.0　**Dependencies:** Python 3 standard library only
+**Version:** 1.5.0　**Dependencies:** Python 3 standard library only
 
 ---
 
