@@ -1,0 +1,23 @@
+{
+  "id": "09-corrected",
+  "name": "瑞幸咖啡 · 120 店 · 修正后",
+  "tags": ["light_meal", "large_segment", "auto_corrected", "hq_supply_chain"],
+  "notes": "规则①把供应链版改成全能版；规则②自动追加门店点位。120 店落到 large-segment-v1，下锚点 100。",
+  "payload": {
+    "客户品牌名称": "瑞幸咖啡",
+    "餐饮类型": "轻餐",
+    "门店数量": 120,
+    "门店套餐": "轻餐连锁营销全能版",
+    "门店增值模块": ["厨房KDS", "供应链基础-门店点位"],
+    "总部模块": ["配送中心", "生产加工"],
+    "配送中心数量": 2,
+    "生产加工中心数量": 1
+  },
+  "expected": {
+    "final_price": 214876,
+    "price_baseline_only": true,
+    "segment": "large",
+    "original_requested_store_count": 120,
+    "effective_store_count": 100
+  }
+}

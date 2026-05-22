@@ -1,0 +1,19 @@
+{
+  "id": "02",
+  "name": "一点点 · 茶饮连锁",
+  "tags": ["light_meal", "small_segment", "single_pass"],
+  "notes": "一级关键词命中（奶茶 → 轻餐），中等门店数 + 三件门店增值模块。",
+  "payload": {
+    "客户品牌名称": "一点点",
+    "餐饮类型": "轻餐",
+    "门店数量": 20,
+    "门店套餐": "轻餐连锁营销旗舰版",
+    "门店增值模块": ["厨房KDS", "电子发票接口", "成本管理"],
+    "总部模块": []
+  },
+  "expected": {
+    "final_price": 52031,
+    "segment": "small",
+    "effective_store_count": 20
+  }
+}
