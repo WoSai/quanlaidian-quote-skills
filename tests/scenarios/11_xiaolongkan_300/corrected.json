@@ -1,0 +1,22 @@
+{
+  "id": "11-corrected",
+  "name": "小龙坎 · 300 店 · 修正后",
+  "tags": ["full_meal", "large_segment", "auto_corrected", "hq_supply_chain", "hotpot"],
+  "notes": "规则①把旗舰版改成全能版；规则②追加门店点位。300 店落 large-segment-v1，售前观察到 effective=200（按下锚点取规则）。",
+  "payload": {
+    "客户品牌名称": "小龙坎",
+    "餐饮类型": "正餐",
+    "门店数量": 300,
+    "门店套餐": "正餐连锁营销全能版",
+    "门店增值模块": ["厨房KDS", "分账管理接口", "供应链基础-门店点位"],
+    "总部模块": ["配送中心"],
+    "配送中心数量": 5
+  },
+  "expected": {
+    "final_price": 673701,
+    "price_baseline_only": true,
+    "segment": "large",
+    "original_requested_store_count": 300,
+    "effective_store_count": 200
+  }
+}

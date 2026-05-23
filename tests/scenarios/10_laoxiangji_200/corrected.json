@@ -1,0 +1,22 @@
+{
+  "id": "10-corrected",
+  "name": "老乡鸡 · 200 店 · 修正后",
+  "tags": ["full_meal", "large_segment", "auto_corrected", "hq_supply_chain"],
+  "notes": "套餐保持全能版，仅追加供应链基础-门店点位。200 店命中 large-segment-v1 的 200 锚点（精确对齐，effective=requested）。",
+  "payload": {
+    "客户品牌名称": "老乡鸡",
+    "餐饮类型": "正餐",
+    "门店数量": 200,
+    "门店套餐": "正餐连锁营销全能版",
+    "门店增值模块": ["厨房KDS", "供应链基础-门店点位"],
+    "总部模块": ["配送中心"],
+    "配送中心数量": 5
+  },
+  "expected": {
+    "final_price": 671926,
+    "price_baseline_only": true,
+    "segment": "large",
+    "original_requested_store_count": 200,
+    "effective_store_count": 200
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "01",
+  "name": "Manner Coffee · 咖啡小店",
+  "tags": ["light_meal", "small_segment", "single_pass"],
+  "notes": "一级关键词命中（Coffee → 轻餐），无总部模块，纯轻餐基础场景。",
+  "payload": {
+    "客户品牌名称": "Manner Coffee",
+    "餐饮类型": "轻餐",
+    "门店数量": 5,
+    "门店套餐": "轻餐连锁营销基础版",
+    "门店增值模块": ["厨房KDS"],
+    "总部模块": []
+  },
+  "expected": {
+    "final_price": 9310,
+    "segment": "small",
+    "effective_store_count": 5
+  }
+}
