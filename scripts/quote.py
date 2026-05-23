@@ -36,10 +36,15 @@ def render(result):
         print(f"> 输入 {requested} 店落在大客户段，主报价按 {effective} 店方案生成；")
         print(f"> PDF/Excel 附相邻两档阶梯对比页，供客户做规模决策参考。\n")
     print("## 下载文件\n")
-    print(f"- [报价单 PDF]({f['pdf']['url']})")
-    print(f"- [报价单 Excel]({f['xlsx']['url']})")
-    print(f"- [报价配置 JSON]({f['json']['url']})")
-    print(f"\n_报价版本：{result['pricing_version']}_")
+    print("> 以下链接含 OSS 签名，必须逐字符原样复制到回复，"
+          "禁止改写/缩写/加省略号/重排，否则会触发 SignatureDoesNotMatch。\n")
+    print("报价单 PDF")
+    print(f"{f['pdf']['url']}\n")
+    print("报价单 Excel")
+    print(f"{f['xlsx']['url']}\n")
+    print("报价配置 JSON")
+    print(f"{f['json']['url']}\n")
+    print(f"_报价版本：{result['pricing_version']}_")
 
 def main():
     ap = argparse.ArgumentParser()
