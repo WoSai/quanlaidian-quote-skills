@@ -56,12 +56,17 @@
       "type": "array",
       "component": "multi_select",
       "required": false,
+      "none_option": {
+        "value": "无门店增值模块",
+        "label": "无门店增值模块",
+        "exclusive": true
+      },
       "dynamic_options": {
         "source": "references/product_catalog.md",
         "filter": "按餐饮类型筛选门店增值模块"
       },
       "default": [],
-      "help_text": "可按需勾选多个门店增值模块。"
+      "help_text": "可按需勾选多个门店增值模块。none_option 渲染为选项列表第一项；exclusive 表示勾选「无门店增值模块」会清空其他勾选，勾选任何其他模块则取消「无门店增值模块」。"
     },
     {
       "key": "总部模块",
@@ -69,12 +74,17 @@
       "type": "array",
       "component": "multi_select",
       "required": false,
+      "none_option": {
+        "value": "无总部模块",
+        "label": "无总部模块",
+        "exclusive": true
+      },
       "dynamic_options": {
         "source": "references/product_catalog.md",
         "filter": "按餐饮类型筛选总部模块"
       },
       "default": [],
-      "help_text": "勾选后会展开对应数量字段。"
+      "help_text": "勾选后会展开对应数量字段。none_option 渲染为选项列表第一项；exclusive 表示勾选「无总部模块」会清空其他勾选，勾选任何其他模块则取消「无总部模块」。"
     },
     {
       "key": "配送中心数量",

@@ -137,6 +137,7 @@ description: "全来店报价技能：当用户需要根据品牌名称、餐饮
 - **触发条件**：运行环境为 OpenClaw Web、IDE 集成或其他非飞书平台，且原生表单已加载。
 - 若 OpenClaw 已展示原生表单，直接引导用户填写表单
 - `references/openclaw_form_schema.json` 与 `references/openclaw_form_config.json` 可作为字段参考，但如果平台未自动加载，不要卡住流程
+- 原生表单的「无总部模块」「无门店增值模块」是互斥哨兵首项：schema 已用字段级 `none_option.exclusive` 声明，渲染层在**点击时**即清空其他勾选、勾其他模块即取消「无…」，无需等到提交后修正（契约见 schema 的 `none_option`）
 - 原生表单在飞书环境下不会出现，所以非飞书平台无需 fallback 到飞书卡片；若表单缺位，直接退到『引导式对话兜底』。
 
 ### 行业关键字 → 餐饮类型判定（三级策略，优先级高于"问轻餐还是正餐"）

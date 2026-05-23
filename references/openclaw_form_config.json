@@ -73,6 +73,11 @@
           "value_type": "array[string]",
           "required": false,
           "default": [],
+          "none_option": {
+            "value": "无门店增值模块",
+            "label": "无门店增值模块",
+            "exclusive": true
+          },
           "dynamic_options": {
             "source": "references/product_catalog.md",
             "rule": "按餐饮类型筛选门店增值模块"
@@ -85,6 +90,11 @@
           "value_type": "array[string]",
           "required": false,
           "default": [],
+          "none_option": {
+            "value": "无总部模块",
+            "label": "无总部模块",
+            "exclusive": true
+          },
           "dynamic_options": {
             "source": "references/product_catalog.md",
             "rule": "按餐饮类型筛选总部模块"
