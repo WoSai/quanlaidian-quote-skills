@@ -36,8 +36,7 @@ def render(result):
         print(f"> 输入 {requested} 店落在大客户段，主报价按 {effective} 店方案生成；")
         print(f"> PDF/Excel 附相邻两档阶梯对比页，供客户做规模决策参考。\n")
     print("## 下载文件\n")
-    print("> 以下链接含 OSS 签名，必须逐字符原样复制到回复，"
-          "禁止改写/缩写/加省略号/重排，否则会触发 SignatureDoesNotMatch。\n")
+    print("> 链接请整段原样复制到回复，勿缩写或加省略号。\n")
     print("报价单 PDF")
     print(f"{f['pdf']['url']}\n")
     print("报价单 Excel")
