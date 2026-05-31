@@ -1,7 +1,7 @@
 """SKILL.md 中三条 payload 自动修正规则的可执行实现。
 
-来源：SKILL.md `卡片答案 → API 字段修正映射`（122–129 行）与
-`套餐默认决策树`（177–182 行）。这里只把"已经在 agent 决策树里
+来源：SKILL.md `卡片答案 → API 字段修正映射` 与
+`套餐默认决策树`。这里只把"已经在 agent 决策树里
 写明的修正动作"复刻成纯函数，供测试断言使用——客户端 quote.py
 不调用它，规则的权威执行点仍是 agent + 后端 API。
 
@@ -34,7 +34,7 @@ def auto_correct(form: dict) -> tuple[dict, list[str]]:
     """对 form 执行 SKILL.md 三条修正规则。
 
     返回 (修正后 payload, 触发的规则文案列表)。规则文案与 SKILL.md
-    第 124–129 行摘要标注口径一致，便于在报价单摘要里展示。
+    `卡片答案 → API 字段修正映射` 摘要标注口径一致，便于在报价单摘要里展示。
     """
     corrected = copy.deepcopy(form)
     triggered: list[str] = []
