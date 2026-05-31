@@ -27,6 +27,6 @@
 
 - **项目性质**:这是 Claude Skill 定义项目,不是普通代码项目。产品逻辑在 `SKILL.md`(报价工作流+决策树)和 `references/`(业态关键字、模块推荐、SKU 定价表);`scripts/*.py` 是薄客户端,只用 Python 标准库,零第三方依赖。
 - **报价唯一来源**:报价必须调 `scripts/quote.py` 走后端 API(见 `SKILL.md` 工作流第 3 步)。禁止在对话里本地估算或手工拼装报价结果。
-- **测试**:离线跑 `python3 -m unittest discover tests -v`;`--live` 模式见 `tests/README.md`。改业务规则要同步 `tests/rules.py` 与 `tests/scenarios/`,改 `SKILL.md` 决策树后跑回归确认不翻车。
-- **提交规范**:用 Conventional Commits 前缀(`feat:`/`fix:`/`docs:`/`refactor:`/`perf:` …),release-please 据此自动出版本 PR,前缀别乱写(见 `release-please-config.json`)。
-- **发布同步**:合并 release PR 后,记得把版本号从 `.release-please-manifest.json` 手工抄进 `VERSION`(节点自更新脚本直读 `VERSION`)。
+- **测试**:离线跑 `python3 -m unittest discover tests -v`;`--live` 模式见 `tests/README.md`。改业务规则要同步 `tests/rules.py` 与 `tests/scenarios/`,改 `SKILL.md` 决策树后跑回归确认不翻车。改 `SKILL.md`/`tests/` 时 Claude Code 的 PostToolUse 钩子(`.claude/hooks/test_gate.py`)会自动跑离线套件,失败即回灌——别等 CI。
+- **提交规范**:用 Conventional Commits 前缀(`feat:`/`fix:`/`docs:`/`refactor:`/`perf:` …),release-please 据此自动出版本 PR,前缀别乱写(见 `release-please-config.json`)。本地由 `.githooks/commit-msg` 强制(Claude 会话经 `.claude` SessionStart 自动启用;人工启用:仓库根跑一次 `git config core.hooksPath .githooks`)。注:PR squash 合并用的是 **PR 标题**,标题同样要守这套前缀,否则照样漏进 changelog。
+- **发布同步**:合并 release PR 后,记得把版本号从 `.release-please-manifest.json` 手工抄进 `VERSION`(节点自更新脚本直读 `VERSION`)。`tests/test_release_sync.py` 守这条:两者不一致离线套件直接红。
