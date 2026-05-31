@@ -1,4 +1,4 @@
-"""quote.py render() 单测：确保三条签名链接原样、独占一行、无截断输出。"""
+"""quote.py render() 单测：确保三条下载短链原样、独占一行、无截断输出。"""
 
 import importlib.util
 import io
@@ -11,9 +11,9 @@ _spec = importlib.util.spec_from_file_location("quote", _QUOTE_PATH)
 quote = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(quote)
 
-PDF_URL = "https://private-resource.shouqianba.com/quanlaidian-quote/AbC/x-pdf.pdf?OSSAccessKeyId=LTAI5t9EporDudCHzZqJV5zz&Expires=1780153828&Signature=RsJMdu5jfAn1GOlh7EhhBtniPTg%3D"
-XLSX_URL = "https://private-resource.shouqianba.com/quanlaidian-quote/AbC/x-xlsx.xlsx?OSSAccessKeyId=LTAI5t9EporDudCHzZqJV5zz&Expires=1780153828&Signature=x2rQsV1HZAFas7dbWU0Zx0y0s4%3D"
-JSON_URL = "https://private-resource.shouqianba.com/quanlaidian-quote/AbC/x-json.json?OSSAccessKeyId=LTAI5t9EporDudCHzZqJV5zz&Expires=1780153828&Signature=%2B9K2DVkdhV3sqYmMHb6zIkykns8%3D"
+PDF_URL = "https://q.shouqianba.com/q/9aZ4kT"
+XLSX_URL = "https://q.shouqianba.com/q/2bY7mQ"
+JSON_URL = "https://q.shouqianba.com/q/5cX1nR"
 
 
 def _result():
@@ -50,8 +50,8 @@ class RenderLinks(unittest.TestCase):
         self.assertNotIn("…", self.out)  # …
         self.assertNotIn("...", self.out)
 
-    def test_verbatim_warning_present(self):
-        self.assertIn("SignatureDoesNotMatch", self.out)
+    def test_copy_hint_present(self):
+        self.assertIn("整段原样复制", self.out)
 
 
 if __name__ == "__main__":
