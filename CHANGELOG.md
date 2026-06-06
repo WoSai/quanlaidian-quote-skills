@@ -1,5 +1,48 @@
 # Changelog
 
+## [1.7.0](https://github.com/WoSai/quanlaidian-quote-skills/compare/v1.6.0...v1.7.0) (2026-06-06)
+
+
+### 新功能
+
+* add daily auto-update mechanism for OpenClaw nodes ([65c8897](https://github.com/WoSai/quanlaidian-quote-skills/commit/65c88971d61359b1444bb9e55c0f25bda599eddd))
+* extend store range 1-300 + remove list price/extrapolation from output ([bd9a35a](https://github.com/WoSai/quanlaidian-quote-skills/commit/bd9a35a8b2e920741ec04652fc8e1e5563088a74))
+* initial commit — OpenClaw thin client v1.0.0 ([823adc1](https://github.com/WoSai/quanlaidian-quote-skills/commit/823adc19882fdbe2909eb565acd66e38ce9d5697))
+* **skill:** 默认套餐联动总部模块（HQ→store 依赖对齐） ([#13](https://github.com/WoSai/quanlaidian-quote-skills/issues/13)) ([9ceeab3](https://github.com/WoSai/quanlaidian-quote-skills/commit/9ceeab3d6b86885125f3f9419e320b827314abfe))
+* 报价输出新增内部利润评估区块,并修套餐名/补关键字/PDF直发 ([#43](https://github.com/WoSai/quanlaidian-quote-skills/issues/43)) ([3826ddf](https://github.com/WoSai/quanlaidian-quote-skills/commit/3826ddf2374a98d468fecd9b44824c398a604f90))
+* 行业关键字软推荐 + 套餐说明/权益类模板内容 ([#5](https://github.com/WoSai/quanlaidian-quote-skills/issues/5)) ([ca9677c](https://github.com/WoSai/quanlaidian-quote-skills/commit/ca9677c57ab6eaad1797d3057eb13f2192384501))
+* 表单「无…模块」哨兵项声明式互斥 ([#30](https://github.com/WoSai/quanlaidian-quote-skills/issues/30)) ([7a063ea](https://github.com/WoSai/quanlaidian-quote-skills/commit/7a063eaad71954ea9e5f51a92df2fe22825fdefc))
+
+
+### 缺陷修复
+
+* 对齐 release-please 状态到 1.5.0 并重置扫描起点 ([#28](https://github.com/WoSai/quanlaidian-quote-skills/issues/28)) ([4c8d5e2](https://github.com/WoSai/quanlaidian-quote-skills/commit/4c8d5e2c993196074adfaa9d8519445d0c157874))
+
+
+### 文档
+
+* add CLAUDE.md with Karpathy coding principles ([#26](https://github.com/WoSai/quanlaidian-quote-skills/issues/26)) ([289d99b](https://github.com/WoSai/quanlaidian-quote-skills/commit/289d99b9ed8554b71607e35cd8912f93d5f4c92c))
+* add Feishu/OpenClaw bot usage guide for sales users ([dd3ad1b](https://github.com/WoSai/quanlaidian-quote-skills/commit/dd3ad1be8571beb820f92752653d13575f52f29a))
+* add project-specific guidance to CLAUDE.md ([#27](https://github.com/WoSai/quanlaidian-quote-skills/issues/27)) ([5999f8b](https://github.com/WoSai/quanlaidian-quote-skills/commit/5999f8bcc9d846506a9afaa7671007e92e4f107c))
+* add 人工改价原因 field, required when 成交价系数 is set ([17f14d3](https://github.com/WoSai/quanlaidian-quote-skills/commit/17f14d36c83a3c946736b5ab07ce6c60924addfa))
+* align third-party delivery channel fee with V5 baseline ([#10](https://github.com/WoSai/quanlaidian-quote-skills/issues/10)) ([6845f81](https://github.com/WoSai/quanlaidian-quote-skills/commit/6845f81cb2dac20229c4fc503060f9b433105e15))
+* backfill 人工改价原因 into README.en.md and SKILL.md ([#1](https://github.com/WoSai/quanlaidian-quote-skills/issues/1)) ([d8b0b28](https://github.com/WoSai/quanlaidian-quote-skills/commit/d8b0b28aec0e4e9be23b00555bf229a79924e57b))
+* placeholderize api.quanlaidian.com in remaining README spots ([#9](https://github.com/WoSai/quanlaidian-quote-skills/issues/9)) ([a94e51b](https://github.com/WoSai/quanlaidian-quote-skills/commit/a94e51be1983ed7596edf6610850a167d8d6813d))
+* replace real API URLs with placeholder in README ([#6](https://github.com/WoSai/quanlaidian-quote-skills/issues/6)) ([7165a5d](https://github.com/WoSai/quanlaidian-quote-skills/commit/7165a5d8befd58f68a3c8eb4043bf888a3a0dab2))
+* **skill:** 强制声明报价文件唯一由 API 产出 ([#14](https://github.com/WoSai/quanlaidian-quote-skills/issues/14)) ([fefdf3f](https://github.com/WoSai/quanlaidian-quote-skills/commit/fefdf3f1d2323c1d9327b27749a809991f037890))
+* **skill:** 瘦身 SKILL.md，静态数据下沉到 references/ ([#15](https://github.com/WoSai/quanlaidian-quote-skills/issues/15)) ([ceeae05](https://github.com/WoSai/quanlaidian-quote-skills/commit/ceeae0549e93522cfa76b5fa154c2e49b4872259))
+* **skill:** 精简 SKILL.md 重复表述并将脉柱规则结构化 ([#36](https://github.com/WoSai/quanlaidian-quote-skills/issues/36)) ([6513513](https://github.com/WoSai/quanlaidian-quote-skills/commit/651351320e888be41fa089aa33449c72e583c89f))
+* **skill:** 顺序卡兜底卡片2去价格、套餐自动判定、无模块首项加互斥标记 ([#31](https://github.com/WoSai/quanlaidian-quote-skills/issues/31)) ([aa94ddc](https://github.com/WoSai/quanlaidian-quote-skills/commit/aa94ddc270222a28b2a262054309e923ebf2ce86))
+* sync README.en.md with Chinese README ([#11](https://github.com/WoSai/quanlaidian-quote-skills/issues/11)) ([6048a64](https://github.com/WoSai/quanlaidian-quote-skills/commit/6048a64e246f876ecf620caa986351ce26527f87))
+* 全通确认卡内联业态推荐模块并加显式确认入口 ([#41](https://github.com/WoSai/quanlaidian-quote-skills/issues/41)) ([893c6de](https://github.com/WoSai/quanlaidian-quote-skills/commit/893c6dee634ec76f5fcf5e7b22d707b4fc373c49))
+* 同步短链默认关闭，链接照抄说明改为格式无关 ([#42](https://github.com/WoSai/quanlaidian-quote-skills/issues/42)) ([8be9d4d](https://github.com/WoSai/quanlaidian-quote-skills/commit/8be9d4df48b22c789f466c50c700f6b1bd195c8c))
+* 门店数采集改为精确数字输入，移除档位单选 ([#32](https://github.com/WoSai/quanlaidian-quote-skills/issues/32)) ([9552732](https://github.com/WoSai/quanlaidian-quote-skills/commit/955273284273229a47e51ac211cc4b4245ccd319))
+
+
+### 重构
+
+* 后端短链上线后下载链接规则从防签名硬规则降级为照抄提示 ([#39](https://github.com/WoSai/quanlaidian-quote-skills/issues/39)) ([686e230](https://github.com/WoSai/quanlaidian-quote-skills/commit/686e23050ac27b6a7a9b1c2e3e9fa16af9821310))
+
 ## 1.6.0 (2026-05-31)
 
 - `SKILL.md` 大幅精简去重 + 决策逻辑结构化（#36 及第二轮）：套餐默认决策树 / 全通判定 / 大客户段锚点等"脊柱规则"改为伪代码 / 布尔门 / 区间查表；⭐推荐机制、套餐决策树、配置摘要、门店数精确数字等散落 5–7 处的重复表述收敛为单一权威小节 + 指针；合并『强制 API 调用』与『其他约束』、删除引导式对话兜底「路径对照」冗余表、压缩触发场景与输出小节；结构化块加"执行态以 `tests/rules.py` 为准"脚注，`tests/` 中失效的 SKILL.md 行号引用改为稳定小节名
