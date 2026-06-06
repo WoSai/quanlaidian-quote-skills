@@ -10,7 +10,7 @@
 - **OpenClaw 等其他平台** → 走原生表单
 - **两者都缺位时** → 退到少打字、以选项为主的引导式对话兜底
 
-**版本：** 1.6.0　**依赖：** 仅 Python 3 标准库
+**版本：** 1.7.0　**依赖：** 仅 Python 3 标准库 <!-- x-release-please-version -->
 
 ---
 
@@ -51,8 +51,8 @@ bash scripts/install_cron.sh
 - release-please 扫描自上次 release 以来的 `feat:` / `fix:` / `docs:` / `refactor:` / `perf:` 等提交，开/更新一个 **release PR**（标题形如 `chore(release): 1.3.0`），把这些条目按类型分组写入 `CHANGELOG.md`，并在 `.release-please-manifest.json` 中 bump 版本。
 - **Reviewer 操作**：
   1. 检查 release PR 中的 CHANGELOG 草稿，必要时手工润色。
-  2. 把 `.release-please-manifest.json` 里的新版本同步写到 `VERSION` 文件（release-please 默认不会动 `VERSION`，因为节点的自更新脚本会直接读取它）。
-  3. 合并 release PR。合并后 release-please 会自动打 `v<version>` git tag 并创建 GitHub Release。
+  2. 合并 release PR。合并后 release-please 会自动打 `v<version>` git tag 并创建 GitHub Release。
+- `VERSION`、`README.md`、`README.en.md` 里的版本号通过 `release-please-config.json` 的 `extra-files` 自动同步（靠行内 `x-release-please-version` 注解定位），无需手工抄；`VERSION` 仍保留首个 `x.y.z` 语义号，节点自更新脚本会忽略注解后缀。
 - 提交信息规范：使用 Conventional Commits（`feat:` / `fix:` / `docs:` / `refactor:` / `perf:` / `chore:` 等）。`chore` / `test` / `build` / `ci` / `style` 默认在 CHANGELOG 中隐藏。
 - 配置文件：`release-please-config.json`（分组规则）+ `.release-please-manifest.json`（当前版本）。
 

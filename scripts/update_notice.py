@@ -29,7 +29,10 @@ def repo_root() -> Path:
 
 
 def read_version(root: Path) -> str:
-    return (root / "VERSION").read_text(encoding="utf-8").strip()
+    # VERSION 带 release-please 注解（`1.6.0 # x-release-please-version`），只取语义版本号。
+    text = (root / "VERSION").read_text(encoding="utf-8")
+    m = re.search(r"\d+\.\d+\.\d+", text)
+    return m.group(0) if m else text.strip()
 
 
 def read_marker() -> str:

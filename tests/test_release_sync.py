@@ -1,10 +1,11 @@
 """发布同步契约：VERSION 必须与 .release-please-manifest.json 一致。
 
-合并 release PR 后需手工把版本号抄进 VERSION(节点自更新脚本直读 VERSION)。
-这条原先只在 CLAUDE.md 口头约束、漏抄不报错——本测试把它变成离线套件里的 CI 红线。
+VERSION 现由 release-please 的 extra-files 自动同步（行内 x-release-please-version
+注解定位），本测试守住「manifest 与 VERSION 不漂移」这条 CI 红线。
 """
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -13,7 +14,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 class ReleaseSyncTest(unittest.TestCase):
     def test_version_matches_manifest(self):
-        version = (REPO_ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        # VERSION 带 release-please 注解（`1.6.0 # x-release-please-version`），只取语义版本号。
+        version = re.search(
+            r"\d+\.\d+\.\d+",
+            (REPO_ROOT / "VERSION").read_text(encoding="utf-8"),
+        ).group(0)
         manifest = json.loads(
             (REPO_ROOT / ".release-please-manifest.json").read_text(encoding="utf-8")
         )
