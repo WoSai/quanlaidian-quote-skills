@@ -36,11 +36,17 @@ def _result():
 
 class RenderLinks(unittest.TestCase):
     def setUp(self):
+        # 离线套件不联网：render() 末尾会拉取 JSON 渲染利润区块，这里短路掉网络。
+        self._orig_fetch = quote.fetch_financials
+        quote.fetch_financials = lambda _url: None
         buf = io.StringIO()
         with redirect_stdout(buf):
             quote.render(_result())
         self.out = buf.getvalue()
         self.lines = self.out.splitlines()
+
+    def tearDown(self):
+        quote.fetch_financials = self._orig_fetch
 
     def test_each_url_intact_and_on_its_own_line(self):
         for url in (PDF_URL, XLSX_URL, JSON_URL):
