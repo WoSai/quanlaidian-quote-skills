@@ -8,11 +8,17 @@
     python3 scripts/check_openclaw_update.py            # 只检查
     python3 scripts/check_openclaw_update.py --apply    # 有新版本则拉取
 """
-import argparse, os, subprocess, sys, urllib.request, urllib.error
+import argparse, os, re, subprocess, sys, urllib.request, urllib.error
 from pathlib import Path
 
 REPO      = os.environ.get("SKILL_REPO", "jasonshao/quanlaidian-quote-skills")
 REMOTE_URL = f"https://raw.githubusercontent.com/{REPO}/main/VERSION"
+
+
+def _semver(text: str) -> str:
+    # VERSION 带 release-please 注解（`1.6.0 # x-release-please-version`），只取语义版本号。
+    m = re.search(r"\d+\.\d+\.\d+", text)
+    return m.group(0) if m else text.strip()
 
 
 def repo_root() -> Path:
@@ -31,12 +37,12 @@ def repo_root() -> Path:
 
 
 def read_local(root: Path) -> str:
-    return (root / "VERSION").read_text(encoding="utf-8").strip()
+    return _semver((root / "VERSION").read_text(encoding="utf-8"))
 
 
 def fetch_remote() -> str:
     with urllib.request.urlopen(REMOTE_URL, timeout=15) as resp:
-        return resp.read().decode("utf-8").strip()
+        return _semver(resp.read().decode("utf-8"))
 
 
 def parse(v: str):

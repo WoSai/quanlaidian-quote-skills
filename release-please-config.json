@@ -22,7 +22,12 @@
     ".": {
       "package-name": "quanlaidian-quote-skills",
       "changelog-path": "CHANGELOG.md",
-      "last-release-sha": "5999f8bcc9d846506a9afaa7671007e92e4f107c"
+      "last-release-sha": "5999f8bcc9d846506a9afaa7671007e92e4f107c",
+      "extra-files": [
+        "VERSION",
+        "README.md",
+        "README.en.md"
+      ]
     }
   }
 }
