@@ -286,8 +286,8 @@ python3 scripts/quote.py --form <submitted-json>
 
 3. PDF 与 Excel 文件直接发送到对话
 - 调用报价脚本生成文件后，从输出中提取两条链接：PDF（`result["files"]["pdf"]["url"]`）、Excel（`result["files"]["xlsx"]["url"]`），分别用 `curl -L -o /tmp/<品牌名>-全来店-报价单.pdf "<PDF URL>"`、`curl -L -o /tmp/<品牌名>-全来店-报价单.xlsx "<Excel URL>"` 下载到本地。
-- 使用 `message` 工具（`action=send`、`channel=feishu`、`filePath`、`caption`）把两个文件分别直接发送到当前对话；PDF 的 `caption` 用 `📄 <品牌名>-全来店-报价单.pdf`，Excel 的 `caption` 用 `📊 <品牌名>-全来店-报价单.xlsx`。
-- 发送成功后，在配置摘要下方加一句提示：`📎 报价单 PDF / Excel 已直接发送到本对话。`
+- **发送顺序：先发卡片（报价摘要），再发文件附件**。卡片提供视觉概览和下载按钮，文件附件作为补充材料随后发送。
+- 使用 `message` 工具（`action=send`、`channel=feishu`、`card=...`）先发送报价卡片；再使用 `message` 工具（`action=send`、`channel=feishu`、`filePath`、`caption`）分别发送 PDF 和 Excel 文件到当前对话；PDF 的 `caption` 用 `📄 <品牌名>-全来店-报价单.pdf`，Excel 的 `caption` 用 `📊 <品牌名>-全来店-报价单.xlsx`。
 - **不阻塞流程，逐个文件独立处理**：任一文件下载失败、发送失败、或当前环境（非飞书）不支持附件发送，静默跳过该文件，仍按第 2 步返回 3 个下载链接作为 fallback，不报错、不中断；某个文件失败不影响另一个文件的发送。
 - 注意：`curl -L` 必须带 `-L` 跟进短链 302 重定向（不加 -L 会把 302 响应体存成文件）；文件命名固定用 `品牌名-全来店-报价单.pdf` 与 `品牌名-全来店-报价单.xlsx`。
 
