@@ -318,6 +318,7 @@ python3 scripts/quote.py --form <submitted-json>
     {"tag": "div", "text": {"tag": "lark_md", "content": "> ⚠️ **配置已自动调整**\n> - {修正说明}"}, "hidden": true},
     {"tag": "hr"},
     {"tag": "div", "text": {"tag": "lark_md", "content": "📎 PDF / Excel 已直接发送到本对话"}},
+    {"tag": "div", "text": {"tag": "lark_md", "content": "📄 **PDF** — 对客报价单，可直接发送客户\n📊 **Excel** — 内部调整与复核\n📋 **JSON** — 内部留档与再次生成"}},
     {"tag": "action", "actions": [
       {"tag": "button", "text": {"tag": "plain_text", "content": "📄 下载 PDF"}, "type": "link", "url": "{pdf_url}"},
       {"tag": "button", "text": {"tag": "plain_text", "content": "📊 下载 Excel"}, "type": "link", "url": "{xlsx_url}"},
