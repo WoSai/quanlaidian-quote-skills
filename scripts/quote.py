@@ -76,9 +76,14 @@ def render(result):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--form", required=True)
+    ap.add_argument("--form", required=True,
+                        help="表单 JSON 文件路径，或内联 JSON 字符串")
     args = ap.parse_args()
-    render(call_server(json.loads(open(args.form, encoding="utf-8").read())))
+    try:
+        form_data = json.loads(open(args.form, encoding="utf-8").read())
+    except (FileNotFoundError, OSError):
+        form_data = json.loads(args.form)
+    render(call_server(form_data))
 
 if __name__ == "__main__":
     main()
